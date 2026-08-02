@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Para Sthefany</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;1,9..144,400&family=Instrument+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --deep: #0E1B33;
+    --mid: #1B2E52;
+    --periwinkle: #7C93D6;
+    --sky: #D9E4F7;
+    --paper: #F7F8FC;
+    --warm: #E8C9A6;
+  }
+  *{ margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
+  html, body{ height:100%; }
+  body{
+    background: radial-gradient(ellipse at 50% 0%, var(--mid) 0%, var(--deep) 70%);
+    font-family:'Instrument Sans', sans-serif;
+    color: var(--sky);
+    min-height:100vh;
+    min-height:100dvh;
+    overflow-x:hidden;
+    position:relative;
+  }
+
+  .stars{ position:fixed; inset:0; z-index:0; pointer-events:none; }
+  .star{
+    position:absolute; background:#fff; border-radius:50%;
+    opacity:0.6; animation: twinkle 3.5s ease-in-out infinite;
+  }
+  @keyframes twinkle{
+    0%,100%{ opacity:0.15; transform:scale(0.8); }
+    50%{ opacity:0.9; transform:scale(1.15); }
+  }
+
+  .progress{
+    position:fixed; top:0; left:0; right:0; z-index:5;
+    display:flex; gap:6px;
+    padding: 18px 24px;
+    justify-content:center;
+  }
+  .dot{
+    width:6px; height:6px; border-radius:50%;
+    background: rgba(217,228,247,0.25);
+    transition: background 0.4s ease, transform 0.4s ease;
+  }
+  .dot.active{ background: var(--warm); transform: scale(1.3); }
+
+  .stage{
+    position:fixed; inset:0; z-index:1;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center;
+    padding: 90px 28px 60px;
+    opacity:0; pointer-events:none;
+    transform: translateY(14px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .stage.active{ opacity:1; pointer-events:auto; transform:translateY(0); }
+
+  .wrap{
+    max-width: 480px;
+    width:100%;
+    display:flex; flex-direction:column; align-items:center; gap:1.8rem;
+  }
+
+  .eyebrow{
+    font-size: 0.72rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--periwinkle);
+  }
+
+  .big-emoji{
+    font-size: clamp(3rem, 12vw, 4.2rem);
+    filter: drop-shadow(0 0 20px rgba(124,147,214,0.55));
+    transition: transform 0.3s ease;
+  }
+  .big-emoji.tappable{ cursor:pointer; }
+  .big-emoji.tappable:active{ transform: scale(0.9); }
+
+  .title{
+    font-family:'Fraunces', serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: clamp(2rem, 8vw, 3.2rem);
+    color: var(--paper);
+    line-height: 1.15;
+  }
+
+  .text{
+    font-family:'Fraunces', serif;
+    font-weight:300;
+    font-size: clamp(1.05rem, 4vw, 1.35rem);
+    line-height: 1.75;
+    color: var(--sky);
+    max-width: 32ch;
+  }
+  .text strong{
+    font-style: italic;
+    font-weight: 500;
+    color: var(--warm);
+  }
+
+  .hint{
+    font-size: 0.78rem;
+    color: rgba(217,228,247,0.5);
+    letter-spacing: 0.05em;
+  }
+
+  button.next{
+    margin-top: 0.5rem;
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: 0.95rem;
+    letter-spacing: 0.03em;
+    color: var(--deep);
+    background: var(--warm);
+    border: none;
+    padding: 15px 34px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    box-shadow: 0 8px 24px rgba(232,201,166,0.25);
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  button.next:active{ transform: scale(0.95); }
+  button.next:focus-visible{ outline: 2px solid var(--paper); outline-offset: 3px; }
+
+  button.ghost{
+    margin-top: 0.2rem;
+    background: transparent;
+    border: 1px solid rgba(217,228,247,0.3);
+    color: var(--sky);
+    font-family:'Instrument Sans', sans-serif;
+    font-size: 0.85rem;
+    padding: 12px 26px;
+    border-radius: 999px;
+    cursor:pointer;
+    transition: border-color 0.25s ease, transform 0.25s ease;
+  }
+  button.ghost:active{ transform: scale(0.95); }
+
+  .heart-final{
+    font-size: clamp(2.4rem, 9vw, 3rem);
+    animation: float 4s ease-in-out infinite;
+  }
+  @keyframes float{
+    0%,100%{ transform: translateY(0); }
+    50%{ transform: translateY(-8px); }
+  }
+
+  .signature{
+    font-family:'Fraunces', serif;
+    font-style: italic;
+    font-size: 1.15rem;
+    color: var(--warm);
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+  }
+
+  @media (max-height: 600px){
+    .stage{ padding-top: 70px; padding-bottom: 40px; }
+    .wrap{ gap: 1.1rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="stars" id="stars"></div>
+
+<div class="progress" id="progress"></div>
+
+<!-- Etapa 1: envelope fechado -->
+<section class="stage active" data-stage="0">
+  <div class="wrap">
+    <p class="eyebrow">uma mensagem para</p>
+    <div class="big-emoji tappable" id="envelope" role="button" tabindex="0" aria-label="Abrir envelope">💌</div>
+    <h1 class="title">Sthefany</h1>
+    <p class="hint">toque no envelope para abrir</p>
+  </div>
+</section>
+
+<!-- Etapa 2 -->
+<section class="stage" data-stage="1">
+  <div class="wrap">
+    <div class="big-emoji">🌙</div>
+    <p class="text">Você já sabe o motivo de eu estar fazendo isso para você.</p>
+    <button class="next" data-next>continuar</button>
+  </div>
+</section>
+
+<!-- Etapa 3 -->
+<section class="stage" data-stage="2">
+  <div class="wrap">
+    <div class="big-emoji">✨</div>
+    <p class="text">A sua amizade é <strong>um dos meus lugares favoritos</strong>. Mas, se eu for sincero, faz um tempo que eu sinto que quero mais do que isso.</p>
+    <button class="next" data-next>continuar</button>
+  </div>
+</section>
+
+<!-- Etapa 4: final -->
+<section class="stage" data-stage="3">
+  <div class="wrap">
+    <div class="heart-final">💙</div>
+    <p class="text">Gosto de você — de verdade, e com calma, do jeito que se gosta de quem a gente escolheria de novo. Eu queria uma chance para lhe mostrar que vamos dar certo mesmo à distância.</p>
+    <p class="text">Eu sempre vou estar ao seu lado, mesmo que a distância nos separe.</p>
+    <p class="text" style="max-width:28ch">Não precisa responder agora. Só queria que você soubesse o quanto que eu gosto e amo você.</p>
+    <p class="signature">com carinho, sempre</p>
+  </div>
+</section>
+
+<script>
+  // estrelas
+  const starsContainer = document.getElementById('stars');
+  for(let i=0; i<60; i++){
+    const s = document.createElement('div');
+    s.className = 'star';
+    const size = Math.random()*2 + 1;
+    s.style.width = size + 'px';
+    s.style.height = size + 'px';
+    s.style.left = Math.random()*100 + 'vw';
+    s.style.top = Math.random()*100 + 'vh';
+    s.style.animationDelay = (Math.random()*3.5) + 's';
+    starsContainer.appendChild(s);
+  }
+
+  // controle de etapas
+  const stages = document.querySelectorAll('.stage');
+  const progress = document.getElementById('progress');
+  let current = 0;
+
+  stages.forEach((_, i) => {
+    const dot = document.createElement('div');
+    dot.className = 'dot' + (i === 0 ? ' active' : '');
+    progress.appendChild(dot);
+  });
+  const dots = document.querySelectorAll('.dot');
+
+  function goTo(index){
+    stages.forEach(s => s.classList.remove('active'));
+    dots.forEach(d => d.classList.remove('active'));
+    stages[index].classList.add('active');
+    dots[index].classList.add('active');
+    current = index;
+  }
+
+  document.getElementById('envelope').addEventListener('click', () => goTo(1));
+  document.getElementById('envelope').addEventListener('keypress', (e) => {
+    if(e.key === 'Enter' || e.key === ' ') goTo(1);
+  });
+
+  document.querySelectorAll('[data-next]').forEach(btn => {
+    btn.addEventListener('click', () => goTo(current + 1));
+  });
+</script>
+
+</body>
+</html>
